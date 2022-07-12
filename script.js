@@ -1,6 +1,6 @@
-const time = document.getElementById('#time'), 
-greeting = document.getElementById('#greeting'),
-name = document.getElementById('#name')
+const time = document.getElementById('time'), 
+greeting = document.getElementById('greeting'),
+name = document.getElementById('name')
 
 // display time
 function showTime() {
@@ -14,10 +14,15 @@ function showTime() {
     hour = hour % 12 || 12 
 
 // Adding onto HTML and output time 
-    time.innerHTML = `${hour} : ${min} : ${seconds}`
+    time.innerHTML = `${hour} : ${addZero(min)} : ${addZero(seconds)}`
 
-// set time to display every second 
-setTimeout(showTime, 1000) 
+// set time to display every second (1000ms = 1s)
+setTimeout(showTime, 1000)
+} 
+// display zero when 1 digit 
+function addZero(number) {
+    return (parseInt(number, 10) < 10 ? '0' : ' ') + number
 }
 
-showTime()
+// run code to display it last
+showTime() 
