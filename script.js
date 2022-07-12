@@ -24,5 +24,29 @@ function addZero(number) {
     return (parseInt(number, 10) < 10 ? '0' : ' ') + number
 }
 
+// set background image and styling depending on day
+function setBackground(){
+    let clock = new Date(), 
+    hour = clock.getHours()
+
+    if (hour < 12){
+        document.body.style.backgroundImage = "url('img/morning.jpg')"
+        document.body.style.backgroundSize = 'cover'
+        greeting.textContent = 'Good Morning'
+    }
+    else if (hour < 1){
+        document.body.style.backgroundImage = "url('img/afternoon.jpg')"
+        document.body.style.backgroundSize = 'cover'
+        greeting.textContent = 'Good Afternoon'
+    }
+    else{
+        document.body.style.backgroundImage = "url('img/night.jpg')"
+        document.body.style.backgroundSize = 'cover'
+        greeting.textContent = 'Good Evening'
+        document.body.style.color = 'white'
+    }
+}
+
 // run code to display it last
-showTime() 
+showTime()
+setBackground()
