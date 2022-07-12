@@ -1,6 +1,7 @@
 const time = document.getElementById('time'), 
 greeting = document.getElementById('greeting'),
-name = document.getElementById('name')
+task = document.getElementById('task'),
+maintxt = document.getElementById('maintxt')
 
 // display time
 function showTime() {
@@ -14,7 +15,7 @@ function showTime() {
     hour = hour % 12 || 12 
 
 // Adding onto HTML and output time 
-    time.innerHTML = `${hour} : ${addZero(min)} : ${addZero(seconds)}`
+    time.innerHTML = `${hour} : ${addZero(min)} : ${addZero(seconds)} ${AmPm}`
 
 // set time to display every second (1000ms = 1s)
 setTimeout(showTime, 1000)
@@ -34,19 +35,85 @@ function setBackground(){
         document.body.style.backgroundSize = 'cover'
         greeting.textContent = 'Good Morning'
     }
-    else if (hour < 1){
+    else if (hour < 18){
         document.body.style.backgroundImage = "url('img/afternoon.jpg')"
         document.body.style.backgroundSize = 'cover'
         greeting.textContent = 'Good Afternoon'
     }
+    else if (hour < 20){
+        document.body.style.backgroundImage = "url('img/evening.jpg')"
+        document.body.style.backgroundSize = 'cover'
+        greeting.textContent = 'Good Evening'
+    }
+
     else{
         document.body.style.backgroundImage = "url('img/night.jpg')"
         document.body.style.backgroundSize = 'cover'
-        greeting.textContent = 'Good Evening'
+        greeting.textContent = 'Good Night'
         document.body.style.color = 'white'
     }
 }
 
+// getname
+function getName(){
+    if (localStorage.getItem('maintxt') === null){
+        maintxt.textContent = '[Enter Name Here]'
+    }
+    else {
+        maintxt.textContent = localStorage.getItem('maintxt')
+    }
+}
+
+// setname
+function setName(event){
+    if (event.type === 'keypress'){
+        //lets me know that enter(13th key) has been clicked
+        if (event.which == 13 || event.keyCode == 13){
+        localStorage.setItem('maintxt', event.target.innerText)
+        // when enter has been clicked (doesnt go on new line)
+        maintxt.blur()
+    }
+}
+    else{
+        localStorage.setItem('maintxt', event.target.innerText)
+    }
+}
+
+ 
+// gettask 
+function getTask(){
+    if (localStorage.getItem('task') === null){
+        task.textContent = '[Enter Todays Task]'
+    }
+    else {
+        task.textContent = localStorage.getItem('task')
+    }
+}
+
+// settask
+function setTask(event){
+    if (event.type === 'keypress'){
+        //lets me know that enter(13th key) has been clicked
+        localStorage.setItem('task', event.target.innerText)
+        // when enter has been clicked (doesnt go on new line)
+        task.blur()
+    }
+    else{
+        localStorage.setItem('task', event.target.innerText)
+    }
+}
+
+
+// event listener for typing in
+maintxt.addEventListener('focus', setName),
+maintxt.addEventListener('blur', setName)
+
+task.addEventListener('focus', setTask),
+task.addEventListener('blur', setTask)
+
+
 // run code to display it last
 showTime()
 setBackground()
+getTask()
+getName()
