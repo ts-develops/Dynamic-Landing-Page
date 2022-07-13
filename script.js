@@ -68,7 +68,7 @@ function getName(){
 function setName(event){
     if (event.type === 'keypress'){
         //lets me know that enter(13th key) has been clicked
-        if (event.which == 13 || event.keyCode == 13){
+        if (event.key === "Enter"){
         localStorage.setItem('maintxt', event.target.innerText)
         // when enter has been clicked (doesnt go on new line)
         maintxt.blur()
@@ -94,10 +94,12 @@ function getTask(){
 function setTask(event){
     if (event.type === 'keypress'){
         //lets me know that enter(13th key) has been clicked
+        if (event.key === "Enter"){
         localStorage.setItem('task', event.target.innerText)
         // when enter has been clicked (doesnt go on new line)
         task.blur()
     }
+}
     else{
         localStorage.setItem('task', event.target.innerText)
     }
